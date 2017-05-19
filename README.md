@@ -32,6 +32,7 @@ Blog: http://blog.csdn.net/h_zhang
 
 * 想要让Activity具有滑动退出的效果，只需要继承SwipeFinishActivity即可；
 * 目前可以支持ContentView为普通的View（比如TextView,ImageView），ListView，GridView，ScrollView；
+* 支持滑动方向的可定制化，通过setSlideFinishFlags(flags)方法设置滑动的方向:FLAG_SCROLL_RIGHT_FINISH, FLAG_SCROLL_DOWN_FINISH;
 
 ## 未完待续~~~
 
