@@ -30,7 +30,22 @@ import java.util.List;
 
 public class SwipeFinishLayout extends FrameLayout {
 
+    /**
+     * TAG
+     */
     public static final String TAG = SwipeFinishLayout.class.getSimpleName();
+    /**
+     * 右滑退出开关位
+     */
+    public static final int FLAG_SCROLL_RIGHT_FINISH = 0x10000000;
+    /**
+     * 下滑退出开关位
+     */
+    public static final int FLAG_SCROLL_DOWN_FINISH = 0x20000000;
+    /**
+     * 滑动方向：缺省值
+     */
+    public static final int ORIENTATION_NONE = 0;
     /**
      * 滑动方向：水平
      */
@@ -40,14 +55,21 @@ public class SwipeFinishLayout extends FrameLayout {
      */
     public static final int ORIENTATION_VERTICAL = 2;
     /**
-     * 滑动方向：初始值
-     */
-    public static final int ORIENTATION_NONE = 0;
-
-    /**
      * 记录手指滑动方向
      */
     private int mScrollOrientation = ORIENTATION_NONE;
+    /**
+     * scroll的最大时长，ms
+     */
+    public static final int MAX_DURATION = 800;
+    /**
+     * 滑动退出模式标识位：
+     * 右滑退出；
+     * 下滑退出；
+     *
+     * 缺省同时支持右滑退出和下滑退出
+     */
+    private int mFlags = FLAG_SCROLL_RIGHT_FINISH | FLAG_SCROLL_DOWN_FINISH;
     /**
      * 最小滑动距离
      */
@@ -306,12 +328,14 @@ public class SwipeFinishLayout extends FrameLayout {
                 int moveY = (int) ev.getRawY();
                 // 横向滑动：满足此条件就对事件进行拦截
                 // TODO: ViewPager
-                if (moveX - mDownX > mTouchSlop
+                if ((mFlags & FLAG_SCROLL_RIGHT_FINISH) != 0
+                        && moveX - mDownX > mTouchSlop
                         && Math.abs((int)ev.getRawY() - mDownY) < mTouchSlop) {
                     return true;
                 }
                 // 纵向滑动：满足此条件就对事件进行拦截
-                if (moveY - mDownY > mTouchSlop
+                if ((mFlags & FLAG_SCROLL_DOWN_FINISH) != 0
+                        && moveY - mDownY > mTouchSlop
                         && Math.abs(moveX - mDownX) < mTouchSlop) {
                     // 1.处理AbsListView的冲突
                     AbsListView alv = getTouchAbsListView(mAbsListViews, ev);
@@ -354,14 +378,16 @@ public class SwipeFinishLayout extends FrameLayout {
                 int deltaX = mTempX - moveX;
                 mTempX = moveX;
                 // 横向滑动
-                if (moveX - mDownX > mTouchSlop
+                if ((mFlags & FLAG_SCROLL_RIGHT_FINISH) != 0
+                        && moveX - mDownX > mTouchSlop
                         && Math.abs((int)event.getRawY() - mDownY) < mTouchSlop
                         && mScrollOrientation != ORIENTATION_VERTICAL) {
                     isSliding = true;
                     mScrollOrientation = ORIENTATION_HORIZONTAL;
                 }
                 // 纵向滑动
-                if (moveY - mDownY > mTouchSlop
+                if ((mFlags & FLAG_SCROLL_DOWN_FINISH) != 0
+                        && moveY - mDownY > mTouchSlop
                         && Math.abs(moveX - mDownX) < mTouchSlop
                         && mScrollOrientation != ORIENTATION_HORIZONTAL) {
                     isSliding = true;
@@ -390,7 +416,8 @@ public class SwipeFinishLayout extends FrameLayout {
             case MotionEvent.ACTION_UP:
                 isSliding = false;
                 if (!isScrolling) {
-                    if (mScrollOrientation == ORIENTATION_HORIZONTAL) {
+                    if ((mFlags & FLAG_SCROLL_RIGHT_FINISH) != 0
+                            && mScrollOrientation == ORIENTATION_HORIZONTAL) {
                         int scrollVelocityX = getScrollVelocityX();
                         Log.d(TAG, "scrollVelocityX: " + scrollVelocityX);
                         if (Math.abs(scrollVelocityX) <= mMinFlingVelocity) {
@@ -405,7 +432,8 @@ public class SwipeFinishLayout extends FrameLayout {
                             scrollToOriginX();
                         }
                     }
-                    if (mScrollOrientation == ORIENTATION_VERTICAL) {
+                    if ((mFlags & FLAG_SCROLL_DOWN_FINISH) != 0
+                            && mScrollOrientation == ORIENTATION_VERTICAL) {
                         int scrollVelocityY = getScrollVelocityY();
                         Log.d(TAG, "scrollVelocityY: " + scrollVelocityY);
                         if (Math.abs(scrollVelocityY) <= mMinFlingVelocity) {
@@ -431,6 +459,7 @@ public class SwipeFinishLayout extends FrameLayout {
 
     /**
      * 平滑滚动View
+     * 由父视图调用，目的是用来请求子view根据偏移值mScrollX,mScrollY执行重绘
      */
     @Override
     public void computeScroll() {
@@ -445,7 +474,7 @@ public class SwipeFinishLayout extends FrameLayout {
                 }
             }
 
-            // 计算mRatio
+            // 计算mRatio,用于设置alpha值
             if (mContentView.getScrollX() != 0) {
                 // 横向滑动
                 mRatio = 1 - Math.abs(mContentView.getScrollX() * 1.0f / mViewWidth);
@@ -463,6 +492,10 @@ public class SwipeFinishLayout extends FrameLayout {
         scrollToBottom();
     }
 
+    /**
+     * 关联的activity是否可以被finish
+     * @return
+     */
     public boolean attachedActivityShouldFinish() {
         return mScroller.isFinished() & isFinish;
     }
@@ -474,7 +507,9 @@ public class SwipeFinishLayout extends FrameLayout {
         isFinish = false;
         isScrolling = true;
         final int delta = mContentView.getScrollX();
-        mScroller.startScroll(mContentView.getScrollX(), 0, -delta, 0, 600);
+        final int duration = (int) (MAX_DURATION * (Math.abs(delta) * 1.0f / mViewWidth));
+        Log.d(TAG, "duration: " + duration);
+        mScroller.startScroll(mContentView.getScrollX(), 0, -delta, 0, duration);
         postInvalidate();
     }
 
@@ -485,7 +520,9 @@ public class SwipeFinishLayout extends FrameLayout {
         isFinish = true;
         isScrolling = true;
         final int delta = mViewWidth + mContentView.getScrollX();
-        mScroller.startScroll(mContentView.getScrollX(), 0, -delta, 0, 600);
+        final int duration = (int) (MAX_DURATION * (Math.abs(delta) * 1.0f / mViewWidth));
+        Log.d(TAG, "duration: " + duration);
+        mScroller.startScroll(mContentView.getScrollX(), 0, -delta, 0, duration);
         postInvalidate();
     }
 
@@ -496,7 +533,9 @@ public class SwipeFinishLayout extends FrameLayout {
         isFinish = false;
         isScrolling = true;
         final int delta = mContentView.getScrollY();
-        mScroller.startScroll(0, mContentView.getScrollY(), 0, -delta, 600);
+        final int duration = (int) (MAX_DURATION * (Math.abs(delta) * 1.0f / mViewHeight));
+        Log.d(TAG, "duration: " + duration);
+        mScroller.startScroll(0, mContentView.getScrollY(), 0, -delta, duration);
         postInvalidate();
     }
 
@@ -507,7 +546,9 @@ public class SwipeFinishLayout extends FrameLayout {
         isFinish = true;
         isScrolling = true;
         final int delta = mViewHeight + mContentView.getScrollY();
-        mScroller.startScroll(0, mContentView.getScrollY(), 0, -delta, 600);
+        final int duration = (int) (MAX_DURATION * (Math.abs(delta) * 1.0f / mViewHeight));
+        Log.d(TAG, "duration: " + duration);
+        mScroller.startScroll(0, mContentView.getScrollY(), 0, -delta, duration);
         postInvalidate();
     }
 
@@ -559,5 +600,14 @@ public class SwipeFinishLayout extends FrameLayout {
         }
     }
 
-
+    /**
+     * 设置滑动退出的方案，目前支持三种种方案：
+     * 右滑退出：FLAG_SCROLL_RIGHT_FINISH
+     * 下滑退出：FLAG_SCROLL_DOWN_FINISH
+     * 右滑下滑退出：FLAG_SCROLL_RIGHT_FINISH | FLAG_SCROLL_DOWN_FINISH
+     * @param flags
+     */
+    public void setFlags(int flags) {
+        mFlags = flags;
+    }
 }

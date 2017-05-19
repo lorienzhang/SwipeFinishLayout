@@ -35,4 +35,15 @@ public class SwipeFinishActivity extends Activity {
             layout.finishActivityBottomOut();
         }
     }
+
+    /**
+     * 设置滑动退出的模式，目前支持三种模式：
+     * 右滑退出：FLAG_SCROLL_RIGHT_FINISH
+     * 下滑退出：FLAG_SCROLL_DOWN_FINISH
+     * 右滑和下滑：FLAG_SCROLL_RIGHT_FINISH | FLAG_SCROLL_DOWN_FINISH
+     * @param flags
+     */
+    public void setSlideFinishFlags(int flags){
+        layout.setFlags(flags);
+    }
 }

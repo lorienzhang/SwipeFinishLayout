@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
                 android:gravity="center"/>
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
                 android:gravity="center"/>
@@ -68,47 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="我不是头条"
-                android:textColor="@android:color/black"
-                android:textSize="22sp"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@android:color/black"
-                android:text="我不是头条"
-                android:textSize="22sp"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="16dp"
-                android:text="我不是头条"
-                android:textSize="22sp"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@android:color/black"
-                android:text="我不是头条"
-                android:textSize="22sp"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@android:color/black"
-                android:text="我不是头条"
-                android:textSize="22sp"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
                 android:gravity="center"/>
@@ -117,7 +77,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
+                android:textSize="22sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -125,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -133,7 +101,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
+                android:textSize="22sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="slide down to finish"
+                android:textColor="@android:color/black"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -141,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -149,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -157,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -165,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
             <TextView
@@ -173,7 +149,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
-                android:text="我不是头条"
+                android:text="slide down to finish"
+                android:textSize="22sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black"
+                android:text="slide down to finish"
+                android:textSize="22sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black"
+                android:text="slide down to finish"
+                android:textSize="22sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black"
+                android:text="slide down to finish"
                 android:textSize="22sp"
                 android:gravity="center"/>
         </LinearLayout>

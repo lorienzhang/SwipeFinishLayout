@@ -55,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:clickable="true"
-            android:text="我不是头条"
+            android:text="slide right to finish"
             android:textColor="#000"
             android:textSize="22sp" />
 
